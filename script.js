@@ -13,22 +13,23 @@ const familyData = [
   { id: "parminder_atwal", name: "Parminder Atwal", birthYear: 1970, deathYear: "Present", info: "Married in 1995" },
   { id: "rajwant_mahal", name: "Rajwant Mahal", birthYear: 1969, deathYear: "Present", info: "Married in 1994" },
   { id: "jagtar_mahal", name: "Jagtar Mahal", birthYear: 1966, deathYear: "Present", info: "Married in 1994" },
-  { id: "tejinder_atwal", name: "Tejinder Atwal", birthYear: 1974, deathYear: 2007 },
   { id: "rajinder_deol", name: "Rajinder Deol", birthYear: 1976, deathYear: "Present", info: "Married in 1999" },
   { id: "gurmukh_deol", name: "Gurmukh Deol", birthYear: 1976, deathYear: "Present", info: "Married in 1999" },
   { id: "gurinder_atwal", name: "Gurinder Atwal", birthYear: 1977, deathYear: "Present", info: "Married in 2005" },
   { id: "harjit_atwal", name: "Harjit Atwal", birthYear: 1985, deathYear: "Present", info: "Married in 2005" },
+  
+  { id: "tejinder_atwal", name: "Tejinder Atwal", birthYear: 1974, deathYear: 2007 },
 
   // Generation 3 & 4
   { id: "amandeep_rai", name: "Amandeep Rai", birthYear: 1985, deathYear: "Present" },
-  { id: "gurdip_rai", name: "Gurdip Rai", birthYear: 1989, deathYear: "Present", info: "Married in 2020" },
+  { id: "gurdeep_rai", name: "Gurdeep Rai", birthYear: 1989, deathYear: "Present", info: "Married in 2020" },
   { id: "harby_rai", name: "Harby Rai", birthYear: 1990, deathYear: "Present", info: "Married in 2020" },
   { id: "niam_rai", name: "Niam Rai", birthYear: 2022, deathYear: "Present" },
   { id: "sandeep_rai", name: "Sandeep Rai", birthYear: 1990, deathYear: "Present" },
   { id: "taldeep_rai", name: "Taldeep Rai", birthYear: 1993, deathYear: "Present", info: "Married in 2021" },
   { id: "aneet_rai", name: "Aneet Rai", birthYear: 1992, deathYear: "Present", info: "Married in 2021" },
   { id: "rowan_rai", name: "Rowan Rai", birthYear: 2024, deathYear: "Present" },
-  { id: "harvey_boparai", name: "Harvey Boparai", birthYear: 1995, deathYear: "Present" },
+  { id: "harvey_boparai", name: "Harvey Boparai", birthYear: 1996, deathYear: "Present" },
   { id: "jasjit_boparai", name: "Jasjit Boparai", birthYear: 1998, deathYear: "Present" },
   { id: "simranpreet_atwal", name: "Simranpreet Atwal", birthYear: 1996, deathYear: "Present" },
   { id: "gurraman_atwal", name: "Gurraman Atwal", birthYear: 1997, deathYear: "Present" },
@@ -51,7 +52,7 @@ const treeStructure = {
       spouse: "talbinder_rai",
       children: [
         { id: "amandeep_rai" },
-        { id: "gurdip_rai", spouse: "harby_rai", children: ["niam_rai"] },
+        { id: "gurdeep_rai", spouse: "harby_rai", children: ["niam_rai"] },
         { id: "sandeep_rai" },
         { id: "taldeep_rai", spouse: "aneet_rai", children: ["rowan_rai"] }
       ]
@@ -60,8 +61,8 @@ const treeStructure = {
     { parent: "balwinder_atwal", spouse: "parminder_atwal", children: ["simranpreet_atwal", "gurraman_atwal", "gavin_atwal"] },
     { parent: "rajwant_mahal", spouse: "jagtar_mahal", children: ["taranvir_mahal", "jaspreet_mahal"] },
     { parent: "rajinder_deol", spouse: "gurmukh_deol", children: ["serena_deol", "shanaya_deol"] },
-    { parent: "gurinder_atwal", spouse: "harjit_atwal", children: ["gagan_atwal", "aashvir_atwal"] }
-    { parent: "tejinder_atwal"}
+    { parent: "gurinder_atwal", spouse: "harjit_atwal", children: ["gagan_atwal", "aashvir_atwal"] },
+    { parent: "tejinder_atwal" }
   ]
 };
 
@@ -183,7 +184,6 @@ function createCouplePair(parentId, spouseId) {
 }
 
 function createVerticalLine() {
-  const line = document.className = "line-v";
   const div = document.createElement("div");
   div.className = "line-v";
   return div;
