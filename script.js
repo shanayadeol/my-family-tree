@@ -98,6 +98,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
   treeContainer.appendChild(gen2BranchesContainer);
 
+  // Automatically scroll and center on Rachpal & Nashatar when page loads
+  setTimeout(() => {
+    const grandparents = document.querySelector(".grandparents-container");
+    if (grandparents) {
+      grandparents.scrollIntoView({
+        behavior: "smooth",
+        inline: "center",
+        block: "start"
+      });
+    }
+  }, 100);
+
   // Modal handler
   treeContainer.addEventListener("click", e => {
     const card = e.target.closest(".member-card");
