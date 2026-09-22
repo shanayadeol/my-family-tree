@@ -1,316 +1,163 @@
-/* style.css - Complete, integrated styles for Family Tree */
-
-/* --- Base & Reset Styles --- */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
+/* Page Setup */
 body {
-    font-family: 'Times New Roman', Times, serif; /* Matching your header style */
-    background-color: #fdfaf8; /* Warm, antique white background */
-    color: #4a3b3b; /* Dark brownish-gray for soft text */
-    line-height: 1.6;
-    padding: 20px;
+  font-family: 'Georgia', serif;
+  background-color: #f7f5f0;
+  color: #4a3e3d;
+  margin: 0;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-/* --- Header Styles (Matching your current live site) --- */
-header {
-    text-align: center;
-    margin-bottom: 50px;
-    border-bottom: 2px solid #8e6f6f; /* Subdued maroon/brown underline */
-    padding-bottom: 20px;
+h1 {
+  font-size: 2.5rem;
+  color: #a85868;
+  margin-bottom: 5px;
 }
 
-header h1 {
-    font-size: 3rem;
-    color: #800000; /* Rich maroon/burgundy */
-    margin-bottom: 8px;
-    font-weight: 400; /* Elegant weight */
+.subtitle {
+  font-style: italic;
+  color: #8c7b78;
+  margin-bottom: 40px;
 }
 
-header p {
-    color: #8e6f6f; /* Soft maroon/brown text */
-    font-size: 1.2rem;
-    font-style: italic;
+/* Tree Structure Containers */
+#tree-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+  overflow-x: auto;
+  padding: 20px 0;
 }
 
-/* --- Tree Container --- */
-main {
-    max-width: 1400px;
-    margin: 0 auto;
-    overflow-x: auto; /* Handles horizontal overflow on narrow screens */
-    padding-bottom: 50px;
-}
-
-/* Base class for the hierarchical vertical tree */
-.tree {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-}
-
-/* --- Container for each Generation Layer (Gen 2-4) --- */
-.gen-container {
-    display: flex;
-    justify-content: center;
-    gap: 10px; /* Space between individual cards or sub-family containers */
-    width: 100%;
-    margin-top: 20px;
-    position: relative;
-}
-
-/* --- Special handling for Gen 2 (The 6 initial siblings) --- */
-/* Ensures the six main family branches wrap if needed */
-.gen-2-branches {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap; /* Allows branches to flow onto new lines */
-    gap: 15px;
-    width: 100%;
-}
-
-/* --- Container for a Parent Card and all its descendants (Branches) --- */
-.family-branch {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    flex: 0 1 auto; /* Allows shrinking on mobile */
-    min-width: 180px;
-}
-
-/* --- Connection Lines (The Tree Structure) --- */
-/* The base shared lines connecting different generations */
-.connection-line {
-    border-left: 2px solid #800000; /* Maroon connection lines */
-    z-index: -1; /* Lines sit behind cards */
-}
-
-/* Vertical line connecting Gen 1 to Gen 2 */
-.line-vertical-gen1 {
-    height: 40px;
-    margin: -10px 0;
-}
-
-/* Vertical line connecting a specific parent card (Gen 2/3) to its immediate children group */
-.line-vertical {
-    height: 30px;
-    margin: -10px 0;
-}
-
-/* Horizontal top border connecting children cards across to each other */
-.line-horizontal {
-    border-top: 2px solid #800000; /* Maroon horizontal connector */
-    height: 10px;
-    margin-top: -10px;
-    width: 100%; /* Spans the entire group of children */
-    display: block;
-}
-
-/* Vertical stub line rising from the top of each child card to meet the main horizontal connector */
-.line-child-stub {
-    border-left: 2px solid #800000; /* Maroon stub line */
-    height: 10px;
-    margin-top: 0px;
-}
-
-/* Special centering/container logic for Gen 1 (Grandparents) */
 .grandparents-container {
-    display: flex;
-    justify-content: center;
-    gap: 15px; /* Spacing between the pair */
-    position: relative;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  position: relative;
 }
 
-/* Specific styling for the initial horizontal line spanning the 6 children of Gen 1 */
-#gen-1-child-line.line-horizontal {
-    width: 90%; /* Shortens the main span slightly for aesthetics */
-    margin-left: auto;
-    margin-right: auto;
+.gen-2-branches {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 30px;
+  width: 100%;
+  border-top: 2px solid #b8a398; /* Horizontal top branch line connecting families */
+  padding-top: 20px;
+  position: relative;
 }
 
-/* Ensures children without descendants (Leaf Nodes) are centered in their column */
-.leaf-container {
-    display: flex;
-    justify-content: center;
-    width: 100%;
+.family-branch {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
 }
 
-/* --- Individual Member Card Styles --- */
+.gen-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  position: relative;
+  width: 100%;
+}
+
+/* Member Cards */
 .member-card {
-    background: #ffffff;
-    border: 1px solid #e1e8ed; /* Subtle gray border */
-    border-radius: 10px; /* Soft corner matching the new aesthetics */
-    padding: 16px 20px;
-    width: 180px; /* Consistent card size */
-    min-height: 85px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05); /* Light shadow for depth */
-    transition: all 0.2s ease-in-out;
-    cursor: pointer;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    z-index: 5; /* Ensures card details (like hover effects) are on top of lines */
-    position: relative;
+  background: #ffffff;
+  border: 1px solid #dcd2c9;
+  border-radius: 8px;
+  padding: 12px 16px;
+  text-align: center;
+  min-width: 110px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  z-index: 2;
 }
 
-/* Special grouping and border for the Grandparents pair */
-.member-card-gen1 {
-    border: 2px solid #800000 !important; /* Prominent maroon border for Gen 1 */
-    font-family: 'Times New Roman', Times, serif; /* Classic font for Gen 1 */
-}
-
-/* Elegant font specific to the Grandparents (Gen 1) cards */
-.member-card-gen1 h3 {
-    font-weight: 400;
-}
-
-/* Hover effects for all cards using the maroon palette */
 .member-card:hover {
-    transform: translateY(-5px) scale(1.03); /* Subtle float and expand */
-    box-shadow: 0 8px 20px rgba(128, 0, 0, 0.15); /* Warm, intense glow on hover */
-    border-color: #800000; /* Matches the color scheme */
-    background-color: #fffaf0; /* Slightly warm tint on hover */
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(168, 88, 104, 0.2);
+  border-color: #a85868;
 }
 
-/* Card inner text elements */
 .member-card h3 {
-    color: #4a3b3b; /* Gentle, warm brownish-gray */
-    font-size: 1.15rem;
-    margin-bottom: 4px;
-    font-weight: 500;
-    line-height: 1.2;
+  margin: 0 0 6px 0;
+  font-size: 0.95rem;
+  color: #333333;
 }
 
-/* Colors for the lifespan text on the card */
 .member-card p {
-    color: #8e6f6f; /* Subdued maroon/brownish text */
-    font-size: 0.9em;
-    font-style: italic; /* Matches the elegance of the header text style */
-    margin: 0;
+  margin: 0;
+  font-size: 0.75rem;
+  color: #777777;
 }
 
-/* --- Modal Popup (Clicked Details) Styles --- */
+.member-card-gen1 {
+  background: #fffafa;
+  border-color: #cbb2b5;
+}
+
+/* Connecting Lines */
+.connection-line {
+  background-color: #b8a398;
+}
+
+.line-vertical {
+  width: 2px;
+  height: 24px;
+  margin: 0 auto;
+}
+
+.line-child-stub {
+  width: 2px;
+  height: 20px;
+  margin-bottom: -2px;
+}
+
+/* Details Modal */
 .modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(74, 59, 59, 0.7); /* Semitransparent warm brownish overlay */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 2000;
-    transition: opacity 0.3s ease;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
 }
 
-/* Actual content container for the popup */
+.modal.hidden {
+  display: none;
+}
+
 .modal-content {
-    background-color: #ffffff;
-    padding: 30px 40px;
-    border-radius: 12px;
-    width: 90%;
-    max-width: 450px;
-    box-shadow: 0 10px 30px rgba(74, 59, 59, 0.3); /* Stronger shadow matching the maroon aesthetic */
-    position: relative;
-    border: 1px solid #e1e8ed;
-    text-align: left; /* Biographies read better left-aligned */
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  max-width: 400px;
+  width: 90%;
+  position: relative;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  text-align: center;
 }
 
-/* Styles for the name in the popup */
-#modal-name {
-    color: #800000; /* Matches the header style exactly */
-    margin-bottom: 12px;
-    font-family: 'Times New Roman', Times, serif; /* Matching font family */
-    font-size: 2rem;
-    font-weight: 400;
+.close-button {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #888888;
 }
 
-/* Styles for the lifespan line in the popup */
-#details-modal .lifespan {
-    color: #8e6f6f; /* Subdued maroon text */
-    font-style: italic;
-    font-size: 1rem;
-    margin-bottom: 20px;
-    display: block; /* Takes up its own line */
-}
-
-/* Biography text area styles */
-#modal-bio {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Cleaner font for reading longer text block */
-    color: #4a3b3b; /* Dark brownish-gray for soft text readability */
-    line-height: 1.7;
-    margin-top: 15px;
-}
-
-/* Text styles for specific detail labels like 'Spouse:' or 'Children:' */
-#modal-bio strong {
-    color: #8e6f6f; /* Maroon subtext accent */
-}
-
-/* Biography description paragraph style */
-#modal-bio p {
-    margin-bottom: 12px;
-}
-
-/* Biography list formatting for things like Children counts */
-#modal-bio ul {
-    list-style-position: inside; /* Standard clean list format within paragraph spacing */
-    margin-left: 10px;
-    margin-top: 10px;
-}
-
-/* Formatting for each list item in the bio (like the Children count list) */
-#modal-bio li {
-    margin-bottom: 8px; /* Standard spacing, matching the rest of the text flow in bio */
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Clean font choice for text block readability */
-    color: #4a3b3b; /* Standard clean brown/gray choice, matching the paragraph text above */
-}
-
-/* Formatting for specific strong/label components in those list items */
-#modal-bio li strong {
-    color: #8e6f6f; /* Maroon subtext accent, matching paragraph strong accent style */
-}
-
-/* Style for standard paragraph text in bio (matching other text blocks) */
-#modal-bio p {
-    margin-bottom: 12px; /* Standard paragraph separation, matching existing bio spacing */
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Clean font choice for text block readability */
-    color: #4a3b3b; /* Standard clean brown/gray choice, matching existing bio text blocks */
-}
-
-/* Close button on the top right of the popup */
-.close {
-    position: absolute;
-    top: 15px;
-    right: 20px;
-    font-size: 28px;
-    font-weight: bold;
-    color: #8e6f6f; /* Soft maroon close button */
-    cursor: pointer;
-    transition: color 0.2s ease;
-}
-
-/* Color shift of close button on hover */
-.close:hover {
-    color: #800000; /* Prominent maroon, accentuating user interaction */
-}
-
-/* --- Utility Classes --- */
-/* Class for hiding the modal (standard practice, implemented here as requested) */
-.hidden {
-    display: none !important;
-}
-
-/* Special adjustments for smaller screens (Mobile) */
-@media (max-width: 1024px) {
-    .gen-2-branches {
-        flex-direction: column; /* Switches from horizontal flow to vertical stack */
-        align-items: center;
-        width: auto;
-    }
+.close-button:hover {
+  color: #333333;
 }
