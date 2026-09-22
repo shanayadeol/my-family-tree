@@ -13,12 +13,14 @@ const familyData = [
   { id: "parminder_atwal", name: "Parminder Atwal", birthYear: 1970, deathYear: "Present", info: "Married in 1995" },
   { id: "rajwant_mahal", name: "Rajwant Mahal", birthYear: 1969, deathYear: "Present", info: "Married in 1994" },
   { id: "jagtar_mahal", name: "Jagtar Mahal", birthYear: 1966, deathYear: "Present", info: "Married in 1994" },
+  
+  // Single 2nd Gen Member between Rajwant and Rajinder
+  { id: "single_person_id", name: "First Last", birthYear: 1972, deathYear: "Present" },
+
   { id: "rajinder_deol", name: "Rajinder Deol", birthYear: 1976, deathYear: "Present", info: "Married in 1999" },
   { id: "gurmukh_deol", name: "Gurmukh Deol", birthYear: 1976, deathYear: "Present", info: "Married in 1999" },
   { id: "gurinder_atwal", name: "Gurinder Atwal", birthYear: 1977, deathYear: "Present", info: "Married in 2005" },
   { id: "harjit_atwal", name: "Harjit Atwal", birthYear: 1985, deathYear: "Present", info: "Married in 2005" },
-  
-  { id: "tejinder_atwal", name: "Tejinder Atwal", birthYear: 1974, deathYear: 2007 },
 
   // Generation 3 & 4
   { id: "amandeep_rai", name: "Amandeep Rai", birthYear: 1985, deathYear: "Present" },
@@ -50,6 +52,7 @@ const treeStructure = {
     {
       parent: "kuldip_rai",
       spouse: "talbinder_rai",
+      childId: "kuldip_rai", // Kuldip is the biological child
       children: [
         { id: "amandeep_rai" },
         { id: "gurdeep_rai", spouse: "harby_rai", children: ["niam_rai"] },
@@ -57,12 +60,15 @@ const treeStructure = {
         { id: "taldeep_rai", spouse: "aneet_rai", children: ["rowan_rai"] }
       ]
     },
-    { parent: "jagdish_boparai", spouse: "bhupinder_boparai", children: ["harvey_boparai", "jasjit_boparai"] },
-    { parent: "balwinder_atwal", spouse: "parminder_atwal", children: ["simranpreet_atwal", "gurraman_atwal", "gavin_atwal"] },
-    { parent: "rajwant_mahal", spouse: "jagtar_mahal", children: ["taranvir_mahal", "jaspreet_mahal"] },
-    { parent: "tejinder_atwal" }
-    { parent: "rajinder_deol", spouse: "gurmukh_deol", children: ["serena_deol", "shanaya_deol"] },
-    { parent: "gurinder_atwal", spouse: "harjit_atwal", children: ["gagan_atwal", "aashvir_atwal"] },
+    { parent: "jagdish_boparai", spouse: "bhupinder_boparai", childId: "jagdish_boparai", children: ["harvey_boparai", "jasjit_boparai"] },
+    { parent: "balwinder_atwal", spouse: "parminder_atwal", childId: "balwinder_atwal", children: ["simranpreet_atwal", "gurraman_atwal", "gavin_atwal"] },
+    { parent: "rajwant_mahal", spouse: "jagtar_mahal", childId: "rajwant_mahal", children: ["taranvir_mahal", "jaspreet_mahal"] },
+    
+    // Placed directly between Rajwant and Rajinder:
+    { parent: "single_person_id", childId: "single_person_id" },
+
+    { parent: "rajinder_deol", spouse: "gurmukh_deol", childId: "rajinder_deol", children: ["serena_deol", "shanaya_deol"] },
+    { parent: "gurinder_atwal", spouse: "harjit_atwal", childId: "gurinder_atwal", children: ["gagan_atwal", "aashvir_atwal"] }
   ]
 };
 
@@ -89,7 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   treeStructure.branches.forEach(branch => {
     const branchCol = createDOMGroup("family-branch");
-    branchCol.appendChild(createCouplePair(branch.parent, branch.spouse));
+    branchCol.appendChild(createCouplePair(branch.parent, branch.spouse, branch.childId));
 
     if (Array.isArray(branch.children) && branch.children.length > 0) {
       branchCol.appendChild(createVerticalLine());
@@ -164,21 +170,40 @@ function createDOMGroup(className) {
   return div;
 }
 
-function createMemberCard(member) {
+function createMemberCard(member, isChild = false) {
+  const cardBox = document.createElement("div");
+  cardBox.className = "card-wrapper";
+
+  // Adds line connecting directly to the biological child
+  if (isChild) {
+    const connectorLine = document.createElement("div");
+    connectorLine.className = "child-line-v";
+    cardBox.appendChild(connectorLine);
+  }
+
   const card = document.createElement("div");
   card.className = "member-card";
   card.dataset.memberId = member.id;
   card.innerHTML = `<h3>${member.name}</h3><p>${member.birthYear} - ${member.deathYear}</p>`;
-  return card;
+  cardBox.appendChild(card);
+
+  return cardBox;
 }
 
-function createCouplePair(parentId, spouseId) {
+function createCouplePair(parentId, spouseId, childId) {
   const container = createDOMGroup('couple-pair');
   const parent = dataMap.get(parentId);
-  if (parent) container.appendChild(createMemberCard(parent));
+  
+  if (parent) {
+    const isChild = (parentId === childId);
+    container.appendChild(createMemberCard(parent, isChild));
+  }
   if (spouseId) {
     const spouse = dataMap.get(spouseId);
-    if (spouse) container.appendChild(createMemberCard(spouse));
+    if (spouse) {
+      const isChild = (spouseId === childId);
+      container.appendChild(createMemberCard(spouse, isChild));
+    }
   }
   return container;
 }

@@ -173,3 +173,18 @@ h1 {
   font-size: 1.4rem;
   cursor: pointer;
 }
+
+/* Card wrapper for direct connecting lines */
+.card-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.child-line-v {
+  width: 2px;
+  height: 15px;
+  background-color: #b8a398;
+  margin-bottom: -1px;
+}
