@@ -15,7 +15,7 @@ const familyData = [
   { id: "jagtar_mahal", name: "Jagtar Mahal", birthYear: 1966, deathYear: "Present", info: "Married in 1994" },
   
   // Single 2nd Gen Member between Rajwant and Rajinder
-  { id: "single_person_id", name: "First Last", birthYear: 1972, deathYear: "Present" },
+  { id: "tejinder_atwal", name: "Tejinder Atwal", birthYear: 1974, deathYear: 2007 },
 
   { id: "rajinder_deol", name: "Rajinder Deol", birthYear: 1976, deathYear: "Present", info: "Married in 1999" },
   { id: "gurmukh_deol", name: "Gurmukh Deol", birthYear: 1976, deathYear: "Present", info: "Married in 1999" },
@@ -65,7 +65,7 @@ const treeStructure = {
     { parent: "rajwant_mahal", spouse: "jagtar_mahal", childId: "rajwant_mahal", children: ["taranvir_mahal", "jaspreet_mahal"] },
     
     // Placed directly between Rajwant and Rajinder:
-    { parent: "single_person_id", childId: "single_person_id" },
+    { parent: "tejinder_atwal" },
 
     { parent: "rajinder_deol", spouse: "gurmukh_deol", childId: "rajinder_deol", children: ["serena_deol", "shanaya_deol"] },
     { parent: "gurinder_atwal", spouse: "harjit_atwal", childId: "gurinder_atwal", children: ["gagan_atwal", "aashvir_atwal"] }
