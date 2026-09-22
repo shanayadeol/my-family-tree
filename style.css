@@ -1,38 +1,44 @@
 /* Page Setup */
+* {
+  box-sizing: border-box;
+}
+
 body {
   font-family: 'Georgia', serif;
   background-color: #f7f5f0;
   color: #4a3e3d;
   margin: 0;
-  padding: 40px 20px;
+  padding: 30px 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-width: min-content;
 }
 
 h1 {
-  font-size: 2.5rem;
+  font-size: 2.2rem;
   color: #a85868;
-  margin-bottom: 5px;
+  margin: 0 0 5px 0;
+  text-align: center;
 }
 
 .subtitle {
   font-style: italic;
   color: #8c7b78;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
+  text-align: center;
 }
 
-/* Tree Structure Containers */
+/* Tree Wrapper & Bidirectional Scroll Support */
 #tree-container {
-  display: flex;
+  display: inline-flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
-  max-width: 1200px;
-  overflow-x: auto;
-  padding: 20px 0;
+  padding: 20px 40px;
+  margin: 0 auto;
 }
 
+/* Generation 1: Grandparents */
 .grandparents-container {
   display: flex;
   justify-content: center;
@@ -40,17 +46,28 @@ h1 {
   position: relative;
 }
 
+/* Generation 2 Main Row */
 .gen-2-branches {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  gap: 30px;
-  width: 100%;
-  border-top: 2px solid #b8a398; /* Horizontal top branch line connecting families */
-  padding-top: 20px;
+  gap: 40px;
   position: relative;
+  padding-top: 20px;
 }
 
+/* Top Horizontal Line across Generation 2 */
+.gen-2-branches::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50px;
+  right: 50px;
+  height: 2px;
+  background-color: #b8a398;
+}
+
+/* Individual Family Branch */
 .family-branch {
   display: flex;
   flex-direction: column;
@@ -58,12 +75,24 @@ h1 {
   position: relative;
 }
 
+/* Branch Children Container */
 .gen-container {
   display: flex;
   justify-content: center;
   gap: 20px;
   position: relative;
+  padding-top: 15px;
   width: 100%;
+}
+
+.gen-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 10%;
+  right: 10%;
+  height: 2px;
+  background-color: #b8a398;
 }
 
 /* Member Cards */
@@ -71,30 +100,33 @@ h1 {
   background: #ffffff;
   border: 1px solid #dcd2c9;
   border-radius: 8px;
-  padding: 12px 16px;
+  padding: 10px 14px;
   text-align: center;
-  min-width: 110px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  min-width: 120px;
+  max-width: 150px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   z-index: 2;
+  white-space: normal;
+  word-break: break-word;
 }
 
 .member-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 4px 12px rgba(168, 88, 104, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(168, 88, 104, 0.2);
   border-color: #a85868;
 }
 
 .member-card h3 {
-  margin: 0 0 6px 0;
-  font-size: 0.95rem;
+  margin: 0 0 4px 0;
+  font-size: 0.88rem;
   color: #333333;
 }
 
 .member-card p {
   margin: 0;
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   color: #777777;
 }
 
@@ -103,24 +135,26 @@ h1 {
   border-color: #cbb2b5;
 }
 
-/* Connecting Lines */
+/* Connecting Vertical Lines */
 .connection-line {
   background-color: #b8a398;
+  width: 2px;
+  z-index: 1;
+}
+
+.line-vertical-gen1 {
+  height: 20px;
 }
 
 .line-vertical {
-  width: 2px;
-  height: 24px;
-  margin: 0 auto;
+  height: 15px;
 }
 
 .line-child-stub {
-  width: 2px;
   height: 20px;
-  margin-bottom: -2px;
 }
 
-/* Details Modal */
+/* Modal Styling */
 .modal {
   position: fixed;
   top: 0;
@@ -140,24 +174,20 @@ h1 {
 
 .modal-content {
   background: #ffffff;
-  padding: 30px;
-  border-radius: 12px;
-  max-width: 400px;
+  padding: 25px;
+  border-radius: 10px;
+  max-width: 380px;
   width: 90%;
   position: relative;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
   text-align: center;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
 .close-button {
   position: absolute;
-  top: 12px;
-  right: 16px;
-  font-size: 1.5rem;
+  top: 10px;
+  right: 14px;
+  font-size: 1.4rem;
   cursor: pointer;
   color: #888888;
-}
-
-.close-button:hover {
-  color: #333333;
 }
