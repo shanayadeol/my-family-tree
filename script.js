@@ -27,7 +27,7 @@ const familyData = [
   { id: "taldeep_rai", name: "Taldeep Rai", birthYear: 1993, deathYear: "Present", info: "Married in 2021" },
   { id: "aneet_rai", name: "Aneet Rai", birthYear: 1992, deathYear: "Present", info: "Married in 2021" },
   { id: "rowan_rai", name: "Rowan Rai", birthYear: 2024, deathYear: "Present" },
-  { id: "harvey_boparai", name: "Harvey Boparai", birthYear: 1996, deathYear: "Present" },
+  { id: "harvey_boparai", name: "Harvey Boparai", birthYear: 1995, deathYear: "Present" },
   { id: "jasjit_boparai", name: "Jasjit Boparai", birthYear: 1998, deathYear: "Present" },
   { id: "simranpreet_atwal", name: "Simranpreet Atwal", birthYear: 1996, deathYear: "Present" },
   { id: "gurraman_atwal", name: "Gurraman Atwal", birthYear: 1997, deathYear: "Present" },
