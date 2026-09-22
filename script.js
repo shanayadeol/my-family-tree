@@ -40,10 +40,8 @@ const familyData = [
   { id: "aashvir_atwal", name: "Aashvir Atwal", birthYear: 2009, deathYear: "Present" }
 ];
 
-// Map for quick data lookups
 const dataMap = new Map(familyData.map(m => [m.id, m]));
 
-// 2. Tree Hierarchy
 const treeStructure = {
   grandparents: ["rachpal_atwal", "nashatar_atwal"],
   branches: [
@@ -65,7 +63,6 @@ const treeStructure = {
   ]
 };
 
-// 3. Render Code
 document.addEventListener("DOMContentLoaded", () => {
   const treeContainer = document.getElementById("tree-container");
   const modal = document.getElementById("details-modal");
@@ -73,48 +70,42 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (!treeContainer) return;
 
-  // --- Step 1: Render Grandparents ---
+  // Render Gen 1
   const gen1Group = createDOMGroup("grandparents-container");
   treeStructure.grandparents.forEach(id => {
     const member = dataMap.get(id);
-    if (member) {
-      const card = createMemberCard(member);
-      card.classList.add('member-card-gen1');
-      gen1Group.appendChild(card);
-    }
+    if (member) gen1Group.appendChild(createMemberCard(member));
   });
   treeContainer.appendChild(gen1Group);
 
-  // Connection line from Grandparents downwards
-  treeContainer.appendChild(createVerticalLine('gen1'));
+  // Line down from Gen 1
+  treeContainer.appendChild(createVerticalLine());
 
-  // --- Step 2: Render Main Branches ---
+  // Render Gen 2 Branches
   const gen2BranchesContainer = createDOMGroup("gen-2-branches");
 
   treeStructure.branches.forEach(branch => {
-    const branchColumn = createDOMGroup("family-branch");
-    branchColumn.appendChild(createStubLine());
+    const branchCol = createDOMGroup("family-branch");
+    
+    // Couple Pair
+    branchCol.appendChild(createCouplePair(branch.parent, branch.spouse));
 
-    // Render Parent + Spouse
-    branchColumn.appendChild(createCouplePair(branch.parent, branch.spouse));
-
-    // Render Children safely
+    // Children Row
     if (Array.isArray(branch.children) && branch.children.length > 0) {
-      branchColumn.appendChild(createVerticalLine('parent'));
-      branchColumn.appendChild(createChildrenRecursive(branch.children));
+      branchCol.appendChild(createVerticalLine());
+      branchCol.appendChild(createChildrenRecursive(branch.children));
     }
 
-    gen2BranchesContainer.appendChild(branchColumn);
+    gen2BranchesContainer.appendChild(branchCol);
   });
 
   treeContainer.appendChild(gen2BranchesContainer);
 
-  // --- Step 3: Modal Event Listener ---
+  // Modal handler
   treeContainer.addEventListener("click", e => {
     const card = e.target.closest(".member-card");
     if (card) {
-      const id = card.dataset.memberId;
-      const member = dataMap.get(id);
+      const member = dataMap.get(card.dataset.memberId);
       if (member) showModal(modal, member);
     }
   });
@@ -124,41 +115,32 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-// Recursive Helper for Children / Grandchildren safely
 function createChildrenRecursive(childrenList) {
-  const container = createDOMGroup("gen-container");
-
-  if (!Array.isArray(childrenList)) return container;
+  const genRow = createDOMGroup("gen-container");
 
   childrenList.forEach(child => {
-    if (!child) return;
-
     if (typeof child === 'string') {
       const member = dataMap.get(child);
-      if (member) container.appendChild(createMemberCard(member));
-    } else if (typeof child === 'object') {
-      const complexBranch = createDOMGroup("family-branch");
-      
-      if (child.id && child.spouse) {
-        complexBranch.appendChild(createStubLine());
-        complexBranch.appendChild(createCouplePair(child.id, child.spouse));
-      } else if (child.id) {
-        const member = dataMap.get(child.id);
-        if (member) complexBranch.appendChild(createMemberCard(member));
+      if (member) {
+        const itemBox = createDOMGroup("branch-item");
+        itemBox.appendChild(createMemberCard(member));
+        genRow.appendChild(itemBox);
       }
+    } else if (typeof child === 'object' && child.id) {
+      const itemBox = createDOMGroup("branch-item");
+      itemBox.appendChild(createCouplePair(child.id, child.spouse));
 
       if (Array.isArray(child.children) && child.children.length > 0) {
-        complexBranch.appendChild(createVerticalLine('parent'));
-        complexBranch.appendChild(createChildrenRecursive(child.children));
+        itemBox.appendChild(createVerticalLine());
+        itemBox.appendChild(createChildrenRecursive(child.children));
       }
-
-      container.appendChild(complexBranch);
+      genRow.appendChild(itemBox);
     }
   });
-  return container;
+
+  return genRow;
 }
 
-// Helper Functions
 function createDOMGroup(className) {
   const div = document.createElement("div");
   div.className = className;
@@ -174,7 +156,7 @@ function createMemberCard(member) {
 }
 
 function createCouplePair(parentId, spouseId) {
-  const container = createDOMGroup('grandparents-container');
+  const container = createDOMGroup('couple-pair');
   const parent = dataMap.get(parentId);
   if (parent) container.appendChild(createMemberCard(parent));
   if (spouseId) {
@@ -184,16 +166,9 @@ function createCouplePair(parentId, spouseId) {
   return container;
 }
 
-function createVerticalLine(type) {
+function createVerticalLine() {
   const line = document.createElement("div");
-  line.className = "connection-line line-vertical";
-  if (type === 'gen1') line.classList.add('line-vertical-gen1');
-  return line;
-}
-
-function createStubLine() {
-  const line = document.createElement('div');
-  line.className = 'line-child-stub connection-line';
+  line.className = "line-v";
   return line;
 }
 

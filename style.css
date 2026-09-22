@@ -1,4 +1,3 @@
-/* Page Setup */
 * {
   box-sizing: border-box;
 }
@@ -8,15 +7,11 @@ body {
   background-color: #f7f5f0;
   color: #4a3e3d;
   margin: 0;
-  padding: 30px 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-width: min-content;
+  padding: 20px;
 }
 
 h1 {
-  font-size: 2.2rem;
+  font-size: 2rem;
   color: #a85868;
   margin: 0 0 5px 0;
   text-align: center;
@@ -25,73 +20,69 @@ h1 {
 .subtitle {
   font-style: italic;
   color: #8c7b78;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   text-align: center;
 }
 
-/* Tree Wrapper & Bidirectional Scroll Support */
+/* Enable Bidirectional Horizontal Scroll with margins */
 #tree-container {
-  display: inline-flex;
+  display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px 40px;
+  min-width: max-content;
+  padding: 20px 60px;
   margin: 0 auto;
 }
 
-/* Generation 1: Grandparents */
+/* Generation Containers */
 .grandparents-container {
   display: flex;
   justify-content: center;
   gap: 15px;
-  position: relative;
 }
 
-/* Generation 2 Main Row */
 .gen-2-branches {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  gap: 40px;
-  position: relative;
-  padding-top: 20px;
+  gap: 30px;
+  border-top: 2px solid #b8a398;
+  padding-top: 15px;
+  margin-top: 0;
 }
 
-/* Top Horizontal Line across Generation 2 */
-.gen-2-branches::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 50px;
-  right: 50px;
-  height: 2px;
-  background-color: #b8a398;
-}
-
-/* Individual Family Branch */
 .family-branch {
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: relative;
 }
 
-/* Branch Children Container */
+.couple-pair {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
 .gen-container {
   display: flex;
   justify-content: center;
   gap: 20px;
-  position: relative;
+  border-top: 2px solid #b8a398;
   padding-top: 15px;
+  margin-top: 0;
   width: 100%;
 }
 
-.gen-container::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 10%;
-  right: 10%;
-  height: 2px;
+.branch-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Connecting Lines */
+.line-v {
+  width: 2px;
+  height: 20px;
   background-color: #b8a398;
 }
 
@@ -100,16 +91,12 @@ h1 {
   background: #ffffff;
   border: 1px solid #dcd2c9;
   border-radius: 8px;
-  padding: 10px 14px;
+  padding: 10px 12px;
   text-align: center;
-  min-width: 120px;
-  max-width: 150px;
+  width: 120px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  z-index: 2;
-  white-space: normal;
-  word-break: break-word;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .member-card:hover {
@@ -120,41 +107,18 @@ h1 {
 
 .member-card h3 {
   margin: 0 0 4px 0;
-  font-size: 0.88rem;
+  font-size: 0.85rem;
   color: #333333;
+  line-height: 1.1;
 }
 
 .member-card p {
   margin: 0;
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   color: #777777;
 }
 
-.member-card-gen1 {
-  background: #fffafa;
-  border-color: #cbb2b5;
-}
-
-/* Connecting Vertical Lines */
-.connection-line {
-  background-color: #b8a398;
-  width: 2px;
-  z-index: 1;
-}
-
-.line-vertical-gen1 {
-  height: 20px;
-}
-
-.line-vertical {
-  height: 15px;
-}
-
-.line-child-stub {
-  height: 20px;
-}
-
-/* Modal Styling */
+/* Modal */
 .modal {
   position: fixed;
   top: 0;
@@ -180,7 +144,6 @@ h1 {
   width: 90%;
   position: relative;
   text-align: center;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
 .close-button {
@@ -189,5 +152,4 @@ h1 {
   right: 14px;
   font-size: 1.4rem;
   cursor: pointer;
-  color: #888888;
 }
