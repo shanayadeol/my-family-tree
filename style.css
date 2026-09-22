@@ -1,0 +1,214 @@
+/* =========================================================
+   1. PALETTE & ROOT VARIABLES (FALL THEME)
+   ========================================================= */
+:root {
+  --bg-cream: #fbf7ee;          /* Soft warm cream background */
+  --card-bg: #fffdf9;           /* Slightly lighter cream for cards/modals */
+  --burgundy: #6b1d2f;          /* Deep rich burgundy for headings & card borders */
+  --text-dark: #3b2319;         /* Dark espresso brown for main body text */
+  --text-muted: #8c6d58;        /* Muted warm earth tone for dates */
+  --amber-gold: #c68a35;       /* Warm fall gold for hover highlights */
+  --border-gold: #d4a359;       /* Soft warm gold for tree connector lines */
+  --shadow-warm: rgba(107, 29, 47, 0.08); /* Subtle burgundy-tinted shadow */
+}
+
+/* =========================================================
+   2. GLOBAL BASE STYLES & TYPOGRAPHY
+   ========================================================= */
+body {
+  font-family: 'Times New Roman', Times, serif;
+  background-color: var(--bg-cream);
+  color: var(--text-dark);
+  margin: 0;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+header h1 {
+  font-family: 'Times New Roman', Times, serif;
+  color: var(--burgundy);
+  font-size: 2.5rem;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
+header p {
+  color: var(--text-muted);
+  font-style: italic;
+  font-size: 1.1rem;
+  margin-top: 0;
+}
+
+/* =========================================================
+   3. TREE CONTAINER & FLEXBOX LAYOUT
+   ========================================================= */
+.tree {
+  display: flex;
+  justify-content: center;
+  overflow-x: auto;
+  padding: 30px 10px;
+}
+
+.tree ul {
+  padding-top: 20px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  list-style-type: none;
+  margin: 0;
+  padding-left: 0;
+}
+
+.tree li {
+  text-align: center;
+  position: relative;
+  padding: 20px 10px 0 10px;
+}
+
+/* =========================================================
+   4. CONNECTOR LINES (WARM GOLD / AMBER)
+   ========================================================= */
+.tree li::before, 
+.tree li::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 50%;
+  border-top: 2px solid var(--border-gold);
+  width: 50%;
+  height: 20px;
+}
+
+.tree li::after {
+  right: auto;
+  left: 50%;
+  border-left: 2px solid var(--border-gold);
+}
+
+.tree li:only-child::after, 
+.tree li:only-child::before {
+  display: none;
+}
+
+.tree li:only-child {
+  padding-top: 0;
+}
+
+.tree li:first-child::before, 
+.tree li:last-child::after {
+  border: none;
+}
+
+.tree li:last-child::before {
+  border-right: 2px solid var(--border-gold);
+  border-radius: 0 6px 0 0;
+}
+
+.tree li:first-child::after {
+  border-radius: 6px 0 0 0;
+}
+
+.tree ul ul::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  border-left: 2px solid var(--border-gold);
+  width: 0;
+  height: 20px;
+}
+
+/* =========================================================
+   5. PERSON CARDS
+   ========================================================= */
+.person-card {
+  background: var(--card-bg);
+  border: 2px solid var(--burgundy);
+  padding: 14px 22px;
+  border-radius: 6px;
+  display: inline-block;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 10px var(--shadow-warm);
+}
+
+.person-card:hover {
+  background-color: #fff9f0;
+  border-color: var(--amber-gold);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 14px rgba(198, 138, 53, 0.2);
+}
+
+.person-card .name {
+  font-weight: bold;
+  font-size: 1.15rem;
+  color: var(--burgundy);
+}
+
+.person-card .dates {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  font-style: italic;
+  margin-top: 4px;
+}
+
+/* =========================================================
+   6. MODAL POP-UP (DETAILS WINDOW)
+   ========================================================= */
+.modal {
+  position: fixed;
+  top: 0; 
+  left: 0; 
+  width: 100%; 
+  height: 100%;
+  background: rgba(44, 24, 16, 0.65); /* Warm translucent backdrop */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal.hidden {
+  display: none;
+}
+
+.modal-content {
+  background: var(--card-bg);
+  border: 2px solid var(--amber-gold);
+  padding: 30px;
+  border-radius: 8px;
+  max-width: 420px;
+  width: 88%;
+  text-align: left;
+  position: relative;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+}
+
+.modal-content h2 {
+  color: var(--burgundy);
+  font-family: 'Times New Roman', Times, serif;
+  margin-top: 0;
+  margin-bottom: 12px;
+  border-bottom: 1px solid var(--border-gold);
+  padding-bottom: 6px;
+}
+
+.modal-content p {
+  color: var(--text-dark);
+  line-height: 1.5;
+  font-size: 1.05rem;
+}
+
+.close {
+  position: absolute;
+  right: 18px;
+  top: 12px;
+  font-size: 28px;
+  color: var(--burgundy);
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.close:hover {
+  color: var(--amber-gold);
+}
