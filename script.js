@@ -86,11 +86,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   treeStructure.branches.forEach(branch => {
     const branchCol = createDOMGroup("family-branch");
-    
-    // Couple Pair
     branchCol.appendChild(createCouplePair(branch.parent, branch.spouse));
 
-    // Children Row
     if (Array.isArray(branch.children) && branch.children.length > 0) {
       branchCol.appendChild(createVerticalLine());
       branchCol.appendChild(createChildrenRecursive(branch.children));
