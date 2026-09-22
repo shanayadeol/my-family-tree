@@ -20,7 +20,7 @@ const familyData = [
 
   // Generation 3 & 4
   { id: "amandeep_rai", name: "Amandeep Rai", birthYear: 1985, deathYear: "Present" },
-  { id: "gurdeep_rai", name: "Gurdeep Rai", birthYear: 1989, deathYear: "Present", info: "Married in 2020" },
+  { id: "gurdip_rai", name: "Gurdip Rai", birthYear: 1989, deathYear: "Present", info: "Married in 2020" },
   { id: "harby_rai", name: "Harby Rai", birthYear: 1990, deathYear: "Present", info: "Married in 2020" },
   { id: "niam_rai", name: "Niam Rai", birthYear: 2022, deathYear: "Present" },
   { id: "sandeep_rai", name: "Sandeep Rai", birthYear: 1990, deathYear: "Present" },
@@ -50,7 +50,7 @@ const treeStructure = {
       spouse: "talbinder_rai",
       children: [
         { id: "amandeep_rai" },
-        { id: "gurdeep_rai", spouse: "harby_rai", children: ["niam_rai"] },
+        { id: "gurdip_rai", spouse: "harby_rai", children: ["niam_rai"] },
         { id: "sandeep_rai" },
         { id: "taldeep_rai", spouse: "aneet_rai", children: ["rowan_rai"] }
       ]
