@@ -1,31 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Our Family Tree</title>
-  <link rel="stylesheet" href="style.css?v=5">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Family Tree</title>
+  <link rel="stylesheet" href="style.css?v=6">
 </head>
 <body>
 
-  <header>
+  <div class="header-section">
     <h1>Family Tree</h1>
-    <p>Click on any family member to view details!</p>
-  </header>
+    <p class="subtitle">Click on any family member to view details!</p>
+  </div>
 
-  <main>
-    <div id="tree-container" class="tree"></div>
-  </main>
+  <div id="tree-wrapper">
+    <div id="tree-container"></div>
+  </div>
 
+  <!-- Modal -->
   <div id="details-modal" class="modal hidden">
     <div class="modal-content">
-      <span id="close-btn" class="close">&times;</span>
+      <span id="close-btn" class="close-button">&times;</span>
       <h2 id="modal-name"></h2>
-      <p><strong>Lifespan:</strong> <span id="modal-dates"></span></p>
-      <p id="modal-bio"></p>
+      <p id="modal-dates"></p>
+      <div id="modal-bio"></div>
     </div>
   </div>
 
-  <script src="script.js?v=5"></script>
+  <script src="script.js?v=6"></script>
 </body>
 </html>
