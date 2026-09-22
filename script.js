@@ -98,17 +98,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
   treeContainer.appendChild(gen2BranchesContainer);
 
-  // Automatically scroll and center on Rachpal & Nashatar when page loads
-  setTimeout(() => {
-    const grandparents = document.querySelector(".grandparents-container");
-    if (grandparents) {
-      grandparents.scrollIntoView({
-        behavior: "smooth",
-        inline: "center",
-        block: "start"
-      });
-    }
-  }, 100);
+  // Precise instant positioning on load
+  window.requestAnimationFrame(() => {
+    setTimeout(() => {
+      const grandparents = document.querySelector(".grandparents-container");
+      if (grandparents) {
+        const rect = grandparents.getBoundingClientRect();
+        const scrollLeft = window.scrollX + rect.left - (window.innerWidth / 2) + (rect.width / 2);
+
+        window.scrollTo({
+          left: Math.max(0, scrollLeft),
+          top: 0,
+          behavior: "instant"
+        });
+      }
+    }, 50);
+  });
 
   // Modal handler
   treeContainer.addEventListener("click", e => {
@@ -176,9 +181,10 @@ function createCouplePair(parentId, spouseId) {
 }
 
 function createVerticalLine() {
-  const line = document.createElement("div");
-  line.className = "line-v";
-  return line;
+  const line = document.className = "line-v";
+  const div = document.createElement("div");
+  div.className = "line-v";
+  return div;
 }
 
 function showModal(modal, member) {
