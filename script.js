@@ -98,8 +98,8 @@ document.addEventListener("DOMContentLoaded", () => {
     // Render Parent + Spouse
     branchColumn.appendChild(createCouplePair(branch.parent, branch.spouse));
 
-    // Render Children
-    if (branch.children && branch.children.length > 0) {
+    // Render Children safely
+    if (Array.isArray(branch.children) && branch.children.length > 0) {
       branchColumn.appendChild(createVerticalLine('parent'));
       branchColumn.appendChild(createChildrenRecursive(branch.children));
     }
@@ -124,20 +124,30 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-// Recursive Helper for Children / Grandchildren
+// Recursive Helper for Children / Grandchildren safely
 function createChildrenRecursive(childrenList) {
   const container = createDOMGroup("gen-container");
 
+  if (!Array.isArray(childrenList)) return container;
+
   childrenList.forEach(child => {
+    if (!child) return;
+
     if (typeof child === 'string') {
       const member = dataMap.get(child);
       if (member) container.appendChild(createMemberCard(member));
-    } else if (typeof child === 'object' && child.id) {
+    } else if (typeof child === 'object') {
       const complexBranch = createDOMGroup("family-branch");
-      complexBranch.appendChild(createStubLine());
-      complexBranch.appendChild(createCouplePair(child.id, child.spouse));
+      
+      if (child.id && child.spouse) {
+        complexBranch.appendChild(createStubLine());
+        complexBranch.appendChild(createCouplePair(child.id, child.spouse));
+      } else if (child.id) {
+        const member = dataMap.get(child.id);
+        if (member) complexBranch.appendChild(createMemberCard(member));
+      }
 
-      if (child.children && child.children.length > 0) {
+      if (Array.isArray(child.children) && child.children.length > 0) {
         complexBranch.appendChild(createVerticalLine('parent'));
         complexBranch.appendChild(createChildrenRecursive(child.children));
       }
@@ -192,9 +202,9 @@ function showModal(modal, member) {
   const modalDates = document.getElementById("modal-dates");
   const modalBio = document.getElementById("modal-bio");
 
-  modalName.textContent = member.name;
-  modalDates.textContent = `${member.birthYear} - ${member.deathYear}`;
-  modalBio.innerHTML = member.info ? `<p><strong>Details:</strong> ${member.info}</p>` : "<p>Family Member</p>";
+  if (modalName) modalName.textContent = member.name;
+  if (modalDates) modalDates.textContent = `${member.birthYear} - ${member.deathYear}`;
+  if (modalBio) modalBio.innerHTML = member.info ? `<p><strong>Details:</strong> ${member.info}</p>` : "<p>Family Member</p>";
 
-  modal.classList.remove("hidden");
+  if (modal) modal.classList.remove("hidden");
 }
